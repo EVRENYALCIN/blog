@@ -15,6 +15,32 @@ namespace blog.Controllers
             _context = context;
             
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        #region Category
+        public IActionResult Category()
+        {
+            List<Category> list = _context.Category.ToList();
+            return View(list);
+        }
+
+        public async Task<IActionResult> CategoryDetails(int Id)
+        {
+            var category = await _context.Category.FindAsync(Id);
+            return Json(category);
+        }
         public async Task<IActionResult> AddCategory(Category category)
         {
             if (category.Id == 0)
@@ -30,25 +56,6 @@ namespace blog.Controllers
             return RedirectToAction(nameof(Category));
         }
 
-        //public async Task<IActionResult> AddCategory(Category category)
-        //{
-        //    await _context.AddAsync(category);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Category));
-        //}
-
-        //public async Task<IActionResult> UpdateCategory(Category category)
-        //{
-        //    _context.Update(category);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Category));
-        //}
-        public IActionResult Category()
-        {
-            List<Category> list = _context.Category.ToList();
-            return View(list);
-        }
-
         public async Task<IActionResult> DeleteCategory(int? Id)
         {
             var category = await _context.Category.FindAsync(Id);
@@ -56,25 +63,45 @@ namespace blog.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Category));
         }
+        #endregion
 
-        public async Task<IActionResult> CategoryDetails(int Id)
+        #region Author
+        public IActionResult Author()
         {
-            var category = await _context.Category.FindAsync(Id);
-            return Json(category);
-        }
-        public IActionResult Index()
-        {
-            return View();
+            List<Author> list = _context.Author.ToList();
+            return View(list);
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> AuthorDetails(int Id)
         {
-            return View();
+            var author = await _context.Author.FindAsync(Id);
+            return Json(author);
         }
-        public IActionResult Contact()
+        public async Task<IActionResult> AddAuthor(Author author)
         {
-            return View();
+            if (author.Id == 0)
+            {
+                await _context.AddAsync(author);
+            }
+            else
+            {
+                _context.Update(author);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Author));
         }
+
+        public async Task<IActionResult> DeleteAuthor(int? Id)
+        {
+            var author = await _context.Author.FindAsync(Id);
+            _context.Remove(author);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Author));
+        }
+        #endregion
+
+
         //public IActionResult Index()
         //{
         //    var list = _context.Blog.Take(4).Where(b => b.IsPublish).OrderByDescending(x => x.CreateTime).ToList();
