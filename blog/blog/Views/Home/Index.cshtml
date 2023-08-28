@@ -1,49 +1,19 @@
-﻿@model IEnumerable<blog.Models.Blog>
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
-<h1>WELCOME</h1>
-@*<header class="masthead" style="background-image: url('img/home-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
-                </div>
+<div class="row">
+    <div class="col-md-6">
+        <form method="POST" action="/Home/Login">
+            <br />
+            <div class="form-group">
+                <input type="text" class="form-control" name="Email" placeholder="Email" />
             </div>
-        </div>
-    </div>
-</header>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          @*  @foreach (var item in Model)
-            {
-                <div class="post-preview">
-                    <a asp-action="Post" asp-route-id="@item.Id">
-                        <h2 class="post-title">
-                            @item.Title
-                        </h2>
-                        <h3 class="post-subtitle">
-                            @item.Subtitle
-                        </h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by
-                        @item.Author.Name
-                        @item.CreateTime 'da yayınlandı
-                    </p>
-                </div>
-                <hr>
-            }*@
-
-
-            <!-- Pager -->
-     @*       <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            <br />
+            <div class="form-group">
+                <input type="text" class="form-control" name="Password" placeholder="Password" />
             </div>
-        </div>
+            <br />
+            <button type="submit" class="btn btn-secondary">Login</button>
+        </form>
     </div>
-</div>*@
+</div>

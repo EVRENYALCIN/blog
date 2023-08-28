@@ -1,5 +1,6 @@
 ﻿using blog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace blog.Controllers
@@ -15,16 +16,18 @@ namespace blog.Controllers
             _context = context;
             
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult About()
+        public IActionResult Login(string Email, string Password)
         {
-            return View();
+            var author = _context.Author.FirstOrDefault(Author => Author.Email == Email && Author.Password==Password);
+            if (author == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            HttpContext.Session.SetInt32("id", author.Id);
+            return RedirectToAction(nameof(Category));
         }
-        public IActionResult Contact()
+        public IActionResult Index()
         {
             return View();
         }
@@ -100,25 +103,6 @@ namespace blog.Controllers
             return RedirectToAction(nameof(Author));
         }
         #endregion
-
-
-        //public IActionResult Index()
-        //{
-        //    var list = _context.Blog.Take(4).Where(b => b.IsPublish).OrderByDescending(x => x.CreateTime).ToList();
-        //    foreach (var blog in list)
-        //    {
-        //        blog.Author = _context.Author.Find(blog.AuthorId);
-        //    }
-        //    return View(list);
-        //}
-
-        //public IActionResult Post(int Id)
-        //{
-        //    var blog = _context.Blog.Find(Id);
-        //    blog.Author = _context.Author.Find(blog.AuthorId);
-        //    blog.ImagePath = "/img/" + blog.ImagePath;
-        //    return View(blog);
-        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
