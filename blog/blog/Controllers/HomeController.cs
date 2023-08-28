@@ -32,6 +32,12 @@ namespace blog.Controllers
             return View();
         }
 
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Index));
+        }
+
         #region Category
         public IActionResult Category()
         {
