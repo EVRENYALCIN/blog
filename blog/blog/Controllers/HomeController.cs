@@ -29,7 +29,20 @@ namespace blog.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var list = _context.Blog.ToList();
+            foreach (var blog in list)
+            {
+                blog.Author = _context.Author.Find(blog.AuthorId);
+            }
+            return View(list);
+        }
+
+        public IActionResult Post(int Id)
+        {
+            var blog = _context.Blog.Find(Id);
+            blog.Author = _context.Author.Find(blog.AuthorId);
+            blog.ImagePath = "/img/" + blog.ImagePath;
+            return View(blog);
         }
 
         public IActionResult LogOut()

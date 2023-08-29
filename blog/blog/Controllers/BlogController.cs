@@ -49,7 +49,8 @@ namespace blog.Controllers
             if (model !=null)
             {
                 var file=Request.Form.Files.First();
-                string savePath = Path.Combine("C:", "Users", "USER", "Source", "Repos", "EVRENYALCIN", "blog", "blog", "blog", "wwwroot", "img");
+                string savePath = Path.Combine("C:", "Users", "evren.yalcin", "Source", "Repos", "blog", "blog", "blog", "wwwroot", "img");
+                //string savePath = Path.Combine("C:", "Users", "USER", "Source", "Repos", "EVRENYALCIN", "blog", "blog", "blog", "wwwroot", "img");
                 var fileName = $"{DateTime.Now:MMddHHmmss}.{file.FileName.Split(".").Last()}";
                 var fileUrl = Path.Combine(savePath, fileName);
                 using(var fileStream=new FileStream(fileUrl, FileMode.Create))
